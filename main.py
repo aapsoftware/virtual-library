@@ -40,7 +40,12 @@ def main():
     set_log_level(args.mode)
     flask_app = initialize_app(config)
 
-    flask_app.run(debug=config.FLASK_DEBUG, host=config.SERVER_HOST, port=config.SERVER_PORT, use_reloader=True)
+    if args.mode == 'prod':
+        use_reloader = False
+    else:
+        use_reloader = True
+
+    flask_app.run(debug=config.FLASK_DEBUG, host=config.SERVER_HOST, port=config.SERVER_PORT, use_reloader=use_reloader)
     return 0
 
 if __name__ == '__main__':
