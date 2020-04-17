@@ -6,3 +6,6 @@ class TitleNotFoundError(StorageError):
 
 class BookReqFoundError(StorageError):
     pass
+
+class InvalidEmailFormat(Exception):
+    pass

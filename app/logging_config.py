@@ -26,7 +26,7 @@ log_config = dict(
         'console': console_handler
     },
     loggers={
-        'flask': {
+        'book_service': {
             'handlers': ['console'],
             'level': logging.info,
             'propagate': False,

@@ -35,7 +35,7 @@ class BookRequests(db.Model):
     id = db.Column(db.String, default=_get_unique_id, primary_key=True)
     book_title_id = db.Column(db.String, db.ForeignKey('BookTitles.id'), nullable=False)
     email = db.Column(db.String, nullable=False)
-    timestamp = db.Column(db.DateTime(), nullable=False)
+    timestamp = db.Column(db.String, nullable=False)
 
     def __repr__(self):
         return (f'<id={self.id}, book_title_id={self.book_title_id}, '

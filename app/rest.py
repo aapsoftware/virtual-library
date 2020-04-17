@@ -17,6 +17,7 @@ flask_api = flask_restplus.Api(
 )
 
 @flask_api.errorhandler(err.StorageError)
+@flask_api.errorhandler(err.InvalidEmailFormat)
 def handle_storage_error(error):
     """Storage Errors"""
     http_status = 400

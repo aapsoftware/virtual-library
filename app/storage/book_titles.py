@@ -16,7 +16,7 @@ class BookTitles(db.Model):
                                     cascade="all, delete, delete-orphan")
 
     def __repr__(self):
-        return f'<id={self.id}, title={self.title}'
+        return f'<id={self.id}, title={self.title}>'
 
 
     def to_dict(self):

@@ -5,7 +5,7 @@ book_request = rest.flask_api.model('book_request', {
     'email': flask_restplus.fields.String(example='me@email.com'),
     'title': flask_restplus.fields.String(example='The three little pigs'),
     'id': flask_restplus.fields.String(example='hfg3s'),
-    'timestamp': flask_restplus.fields.DateTime(
+    'timestamp': flask_restplus.fields.String(
         description='Request timestamp in ISO 8601 format', example='2020-01-01T23:30:00'
     )
 })
