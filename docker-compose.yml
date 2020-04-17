@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+    virtual-library-builder:
+        image: virtual-library-builder
+        build:
+            context: '.'
+            dockerfile: 'Dockerfile-build'
+
+    virtual-library:
+        image: virtual-library
+        build: .
+        stop_signal: SIGINT
+        ports:
+            - "7777:7777"

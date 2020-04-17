@@ -1,0 +1,226 @@
+swagger: '2.0'
+basePath: /api/v1
+paths:
+  /book:
+    get:
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/book_title_list'
+        '204':
+          description: No Book titles
+        '400':
+          description: Error retrieving book titles
+      summary: get all book titles
+      operationId: retrieve_all_book_titles
+      parameters:
+        - name: X-Fields
+          in: header
+          type: string
+          format: mask
+          description: An optional fields mask
+      tags:
+        - book
+  '/book/{book_title}':
+    parameters:
+      - in: path
+        description: book title
+        name: book_title
+        required: true
+        type: string
+    get:
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/book_title'
+        '400':
+          description: Error retrieving book title
+        '404':
+          description: Book title not found
+      summary: get book by title
+      operationId: retrieve_book_title
+      parameters:
+        - name: X-Fields
+          in: header
+          type: string
+          format: mask
+          description: An optional fields mask
+      tags:
+        - book
+    post:
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/book_title'
+        '400':
+          description: Error when storing book stitle
+      summary: add a book title
+      operationId: add_book_title
+      parameters:
+        - name: X-Fields
+          in: header
+          type: string
+          format: mask
+          description: An optional fields mask
+      tags:
+        - book
+  /request:
+    get:
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/book_request_list'
+        '400':
+          description: Request error
+        '404':
+          description: Request not found
+      summary: get all book requests
+      operationId: retrieve_all_book_requests
+      parameters:
+        - name: X-Fields
+          in: header
+          type: string
+          format: mask
+          description: An optional fields mask
+      tags:
+        - request
+    post:
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/book_request'
+        '400':
+          description: Request error
+      summary: create a book request
+      operationId: request_book
+      parameters:
+        - name: email
+          in: query
+          type: string
+          required: true
+          description: user_email
+        - name: title
+          in: query
+          type: string
+          required: true
+          description: book title
+        - name: X-Fields
+          in: header
+          type: string
+          format: mask
+          description: An optional fields mask
+      tags:
+        - request
+  '/request/{id}':
+    parameters:
+      - in: path
+        description: request id
+        name: id
+        required: true
+        type: string
+    get:
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/book_request'
+        '400':
+          description: Request error
+        '404':
+          description: Request not found
+      summary: get a book request by id
+      operationId: retrieve_book_request
+      parameters:
+        - name: X-Fields
+          in: header
+          type: string
+          format: mask
+          description: An optional fields mask
+      tags:
+        - request
+    delete:
+      responses:
+        '200':
+          description: Request deleted successfully
+        '400':
+          description: Request error
+        '404':
+          description: Request not found
+      summary: delete a book request
+      operationId: delete_book_request
+      tags:
+        - request
+info:
+  title: Book Request API
+  version: '1.0'
+  description: A book request API for a thoretical virtual library
+produces:
+  - application/json
+consumes:
+  - application/json
+tags:
+  - name: request
+    description: |
+
+      Book Request API
+  - name: book
+    description: |
+
+      Book API - to be used mainly for testing and populating the db with book titles
+definitions:
+  book_request_list:
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/book_request'
+    type: object
+  book_request:
+    properties:
+      email:
+        type: string
+        example: me@email.com
+      title:
+        type: string
+        example: The three little pigs
+      id:
+        type: string
+        example: hfg3s
+      timestamp:
+        type: string
+        format: date-time
+        description: Request timestamp in ISO 8601 format
+        example: '2020-01-01T23:30:00'
+    type: object
+  book_title_list:
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/book_title'
+    type: object
+  book_title:
+    properties:
+      id:
+        type: integer
+        example: '1'
+      title:
+        type: string
+        example: Alone in the woods
+    type: object
+responses:
+  ParseError:
+    description: When a mask can't be parsed
+  MaskError:
+    description: When any error occurs on mask
+  StorageError:
+    description: Storage Errors
+  BadRequest:
+    description: Invalid Request
+  NotFound:
+    description: Not Found

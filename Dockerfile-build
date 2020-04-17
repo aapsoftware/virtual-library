@@ -1,0 +1,22 @@
+FROM    python:3
+
+ADD     requirements.txt  /
+RUN     pip install -r requirements.txt
+
+# WORKDIR /app
+# RUN     pip install -r requirements.txt
+
+# ENV     LISTEN_ADDR="0.0.0.0" \
+#         LISTEN_PORT=7777 \
+#         INSTALL_PREFIX="/app" \
+#         PYTHONUSERBASE="/app"
+
+
+# # Make port 7777 available to the world outside this container
+# EXPOSE   7777
+
+# RUN      chmod 755 ./entrypoint.sh
+# RUN      chmod 755 ./wait-for-it.sh
+
+# # Run the virtual_library flask app when the container launches
+# CMD ["./entrypoint.sh"]
