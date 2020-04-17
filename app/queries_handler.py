@@ -10,6 +10,9 @@ from app.storage.book_requests import BookRequests
 log = logging.getLogger(__name__)
 
 def add_book_title(title):
+    '''
+    add a book title to db
+    '''
     new_title = BookTitles(title=title)
     try:
         db.session.add(new_title)
@@ -19,9 +22,13 @@ def add_book_title(title):
         log.error(f'sqlachemy error: {ex}')
         raise error.StorageError('could not add book title!')
 
+    log.info(f'Book title {title} successfully added')
     return new_title
 
 def get_book_title(book_title=None):
+    '''
+    get book titles from db
+    '''
     try:
         if book_title is not None:
             title = BookTitles.get(book_title)
@@ -38,10 +45,11 @@ def get_book_title(book_title=None):
 
 
 def _get_timestamp_now():
-    TIME_DATE_FORMAT = "%Y-%m-%dT%H:%M:%S"
+    '''
+    get timestamp in in ISO 8601 format
+    '''
+    return datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
-    return datetime.datetime.now().strftime(TIME_DATE_FORMAT)
-    # return datetime.datetime.strptime(datetime_as_str,TIME_DATE_FORMAT)
 
 def _check_email_address_format(email):
     '''
@@ -54,7 +62,11 @@ def _check_email_address_format(email):
     if not (re.search(email_regex, email)):
         raise error.InvalidEmailFormat('Invalid email address format')
 
+
 def create_book_request(email, title):
+    '''
+    validate and add a book request to db
+    '''
     _check_email_address_format(email)
     title = get_book_title(title)
     timestamp = _get_timestamp_now()
@@ -70,9 +82,14 @@ def create_book_request(email, title):
 
     ret_value = new_book_request.to_dict()
     ret_value['title'] = title.title
+    log.info(f'new book request {ret_value} successfully added')
     return ret_value
 
+
 def get_book_request(id_=None):
+    '''
+    get book requests from db
+    '''
     query = db.session.query(BookRequests, BookTitles) \
             .join(BookRequests, BookTitles.id == BookRequests.book_title_id)
     try:
@@ -86,16 +103,14 @@ def get_book_request(id_=None):
 
             return book_req
         else:
-            #req_list = BookRequests.get_all()
             req_list = query.all()
-            log.debug(req_list)
+
             ret_list = []
             for x in req_list:
                 book_req_details = x.BookTitles.to_dict()
                 book_req_details.update(x.BookRequests.to_dict())
                 ret_list.append(book_req_details)
 
-            log.debug(ret_list)
             return {'data': ret_list}
 
     except sqlalchemy.exc.SQLAlchemyError as ex:
@@ -104,6 +119,9 @@ def get_book_request(id_=None):
 
 
 def delete_book_request(id_):
+    '''
+    delete a book request by id
+    '''
     try:
         book_req = BookRequests.get(id_)
         if book_req is None:
@@ -112,3 +130,5 @@ def delete_book_request(id_):
     except sqlalchemy.exc.SQLAlchemyError as ex:
         log.error(f'Error while deleting book request {ex}')
         raise error.StorageError('Error while deleting book request')
+
+    log.info(f'book request with id {id_} deleted')
