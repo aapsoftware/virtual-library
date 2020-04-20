@@ -22,6 +22,7 @@ class Request(Resource):
     @ns.expect(book_req_params, validate=True)
     @ns.marshal_with(serializers.book_request, skip_none=True)
     @ns.response(200, 'Request successful')
+    @ns.response(404, 'Book title not found')
     @ns.response(400, 'Request error')
     def post(self):
         """
@@ -41,6 +42,7 @@ class Request(Resource):
         get all book requests
         """
         return qh.get_book_request()
+
 
 @ns.route('/<id>')
 @ns.param('id', 'request id')

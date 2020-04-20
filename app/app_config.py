@@ -15,7 +15,10 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False
 
-    ERROR_404_HELP = False
+    RESTPLUS_VALIDATE = True
+    RESTPLUS_MASK_SWAGGER = False
+    RESTPLUS_ERROR_404_HELP = False
+    RESTPLUS_ERROR_INCLUDE_MESSAGE = False
 
     DEBUG = False
     FLASK_DEBUG = False
@@ -30,3 +33,4 @@ class TestingConfig(Config):
     DEBUG = False
     FLASK_DEBUG = False
     TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite://' #in memory db

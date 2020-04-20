@@ -5,7 +5,7 @@ services:
         image: virtual-library-builder
         build:
             context: '.'
-            dockerfile: 'Dockerfile-build'
+            dockerfile: 'Dockerfile.build'
 
     virtual-library:
         image: virtual-library

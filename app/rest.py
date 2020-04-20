@@ -23,7 +23,6 @@ def handle_storage_error(error):
     http_status = 400
     if isinstance(error, err.TitleNotFoundError) or isinstance(error, err.BookReqFoundError):
         http_status = 404
-
     return {'error': {'message': str(error)}}, http_status
 
 

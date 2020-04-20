@@ -1,0 +1,10 @@
+FROM    virtual-library-builder
+ADD     test-requirements.txt test-requirements.txt
+RUN     pip install -r test-requirements.txt
+
+ADD     .   ./app
+
+WORKDIR /app
+
+# Run the tests
+RUN     ./run-tests.sh

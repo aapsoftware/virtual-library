@@ -18,6 +18,11 @@ docker-compose stop
 docker-compose up
 ```
 
+# Runing unit tests
+```
+docker build -f Dockerfile.build -t virtual-library-builder .
+docker build -f Dockerfile.tests .
+```
 
 # About the app
  An initial db is added to the image which contains a few book titles
