@@ -57,6 +57,9 @@ To see the API documentation:
     add a book request
     curl -i -X POST "http://localhost:7777/api/v1/request?email=<email>&title=<title>"
 
-    get a book requests
+    get a book request
     curl -i -X GET "http://localhost:7777/api/v1/book/<book_request_id>"
+    
+    delete a book request
+    curl -i -X DELETE "http://localhost:7777/api/v1/book/<book_request_id>"
 ```
