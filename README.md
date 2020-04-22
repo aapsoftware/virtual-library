@@ -6,13 +6,13 @@
 docker-compose up
 ```
 
-# Stopping the containser
+# Stopping the container
 
 ```
 docker-compose stop
 ```
 
-# Removing the containser and starting over
+# Removing the container and starting over
 
 ```
 docker-compose up
@@ -46,7 +46,9 @@ To see the API documentation:
     curl -i -X GET "http://localhost:7777/api/v1/book/<desired_book_title>"
 ```
 
+
     - one to manage book titles:
+    
 
 ```
     get all book requests:
